@@ -14,7 +14,7 @@
 - (IBAction)verifyUser:(id)sender {
     
     // TODO Call your backend to get `sdkToken` https://github.com/onfido/onfido-ios-sdk#31-sdk-tokens
-    NSString * sdkToken = @"SDK_TOKEN";
+    NSString * sdkToken = @"demo"; // Demo token to test the SDK
     
     ONFlowConfigBuilder *configBuilder = [ONFlowConfig builder];
     [configBuilder withSdkToken:sdkToken];

@@ -11,7 +11,7 @@ final class ViewController: UIViewController {
     @IBAction
     func verifyUser(_ sender: Any) {
         // TODO: Call your backend to get `sdkToken` https://github.com/onfido/onfido-ios-sdk#31-sdk-tokens
-        let sdkToken = ""
+        let sdkToken = "demo" // Demo token to test the SDK
 
         let config = try! OnfidoConfig.builder()
             .withSDKToken(sdkToken)
