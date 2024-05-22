@@ -11,3 +11,6 @@ SampleAppObjC/SampleApp.xcodeproj/xcuserdata
 SampleAppObjC/SampleApp.xcworkspace/xcuserdata
 
 xcuserdata/
+
+node_modules
+.DS_Store
