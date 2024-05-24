@@ -7,16 +7,53 @@
 import Onfido
 import UIKit
 
+let jsonStr = """
+{
+  "uuid": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
+  "enterprise_features": {
+    "useMediaCallback": true,
+    "disableSDKAnalytics": true,
+    "hideOnfidoLogo": true
+  },
+"urls": {
+    "detect_document_url": "http://localhost:3000",
+    "sync_url": "http://localhost:3000",
+    "hosted_sdk_url": "http://localhost:3000",
+    "auth_url": "http://localhost:3000",
+    "onfido_api_url": "http://localhost:3000",
+    "telephony_url": "http://localhost:3000"
+  },
+  "payload": {
+    "app": "HELLO",
+    "client_uuid": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+    "application_id": "APP_ID",
+    "is_self_service_trial": false,
+    "is_trial": false,
+    "is_sandbox": false
+  }
+}
+"""
+
 final class ViewController: UIViewController {
     @IBAction
     func verifyUser(_ sender: Any) {
         // TODO: Call your backend to get `sdkToken` https://github.com/onfido/onfido-ios-sdk#31-sdk-tokens
-        let sdkToken = "demo" // Demo token to test the SDK
+        let service = JWTService(secret: "MySecret")
+        let sdkToken = service.createJWT(sdkTokenJson: jsonStr) ?? "demo"
+        
+        let features = EnterpriseFeatures.builder()
+           // .withCobrandingText("Acme Inc")
+           // .withDisableMobileSdkAnalytics(true)
+            //.withCobrandingLogo(UIImage(systemName: "person")!, cobrandingLogoDarkMode: UIImage(systemName: "circle")!)
+           .withHideOnfidoLogo(true)
+            .build()
+
 
         let config = try! OnfidoConfig.builder()
             .withSDKToken(sdkToken)
             .withWelcomeStep()
             .withDocumentStep()
+            .withEnterpriseFeatures(features)
             .withFaceStep(ofVariant: .photo(withConfiguration: nil))
             .build()
 
